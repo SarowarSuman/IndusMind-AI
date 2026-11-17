@@ -1,0 +1,1605 @@
+# LOVABLE MASTER PROMPT — INDUSTRYSPHERE AI
+## AI-Powered Industrial Intelligence & Predictive Plant Platform
+
+Build a complete, premium, futuristic, fully interactive 3D web application named **IndustrySphere AI**.
+
+This is a competition-level product prototype intended to be presented to judges, investors, industrial experts, and potential customers. The quality must feel like a professional industrial AI SaaS product backed by a serious technology company, not a student project, generic admin dashboard, or static landing page.
+
+**Do not build only a landing page. Build the complete working platform, including its marketing website, 3D interactive hero, application dashboard, predictive maintenance engine, AI assistant, machine simulation, production intelligence, supply-chain intelligence, weather intelligence, analytics, and interactive demo environment.**
+
+The website must be visually impressive, technically convincing, responsive, and functional.
+
+---
+
+# 1. PRODUCT IDENTITY & VISION
+
+**Brand Name:** IndustrySphere AI
+
+**Main Tagline:**
+"Predict Today. Prevent Tomorrow. Produce Smarter."
+
+**Alternative Supporting Statement:**
+"Transforming Industrial Operations into Intelligent, Predictive, and Resilient Ecosystems."
+
+**Product Description:**
+
+IndustrySphere AI is an AI-powered industrial intelligence platform designed to help manufacturers and industrial organizations anticipate equipment failures, reduce unplanned downtime, optimize production, monitor operational risks, improve maintenance planning, and prepare for supply-chain disruptions.
+
+The platform combines predictive maintenance, machine health monitoring, production intelligence, AI-powered recommendations, and supply-chain risk analysis into one unified industrial intelligence ecosystem.
+
+**Primary Vision:**
+
+Make advanced industrial intelligence accessible, affordable, scalable, and practical for businesses of every size, particularly manufacturers in Bangladesh and developing economies.
+
+**Core Philosophy:**
+
+Do not wait for a machine to fail. Detect the warning signs, understand the risks, and take action before production is affected.
+
+---
+
+# 2. TARGET INDUSTRIES — UNIVERSAL INDUSTRIAL PLATFORM
+
+IMPORTANT: This product must NOT look like a solution designed exclusively for garments factories.
+
+IndustrySphere AI must be designed as a configurable, multi-industry platform that can support different organizations, factories, industrial plants, infrastructure operators, and asset-intensive businesses.
+
+Create an Industry Selection System with the following industry presets:
+
+1. Garments & Apparel
+2. Textile & Dyeing
+3. Pharmaceuticals & Healthcare Manufacturing
+4. Food & Beverage Processing
+5. Cement & Construction Materials
+6. Steel & Metal Manufacturing
+7. Automotive & Automobile Parts
+8. Electronics & Semiconductor Manufacturing
+9. Plastic & Packaging Industry
+10. Chemical & Petrochemical Industry
+11. Power Plants & Energy
+12. Agriculture & Agro-processing
+13. Cold Storage & Warehousing
+14. Logistics & Transportation
+15. Mining & Heavy Equipment
+16. Shipbuilding & Marine Engineering
+17. Paper & Pulp Manufacturing
+18. Water Treatment & Utilities
+19. Light Engineering & SMEs
+20. Other Custom Industries
+
+Each industry must have its own configurable machine and asset categories, sample operational parameters, maintenance requirements, production KPIs, and relevant risk indicators.
+
+For example:
+
+- Garments: Sewing machines, cutting machines, boilers, compressors, generators.
+- Textile: Spinning machines, knitting machines, dyeing machines, finishing equipment.
+- Pharmaceutical: HVAC, compressors, production mixers, filling machines, packaging equipment.
+- Food Processing: Refrigeration units, conveyors, mixers, packaging machines.
+- Cement: Crushers, kilns, grinding mills, heavy motors.
+- Steel: Furnaces, rolling mills, hydraulic systems, industrial cranes.
+- Automotive: CNC machines, robotic arms, assembly lines, welding systems.
+- Electronics: SMT machines, pick-and-place systems, soldering equipment.
+- Agriculture: Irrigation pumps, harvesters, tractors, processing equipment.
+- Power: Turbines, generators, transformers, cooling systems.
+- Logistics: Conveyor systems, warehouse automation, refrigeration and fleet assets.
+
+Allow users to select an industry and automatically load an appropriate demo environment.
+
+The system must also support adding custom machines and custom industries.
+
+Do not imply that every asset has identical sensors or prediction requirements. Make sensor configurations, operating thresholds, and predictive models asset-specific.
+
+---
+
+# 3. VISUAL DESIGN — PREMIUM FUTURISTIC INDUSTRIAL AESTHETIC
+
+The entire website should look like a combination of:
+
+- A premium industrial technology company.
+- A next-generation AI command center.
+- A futuristic digital twin environment.
+- An enterprise-grade SaaS analytics platform.
+
+**Visual direction:**
+
+Use a sophisticated dark-first design.
+
+Color palette:
+
+- Primary background: #070B14
+- Secondary background: #0D1422
+- Card background: #111C2D
+- Primary accent: Electric Cyan #00E5FF
+- Secondary accent: Blue #3B82F6
+- AI accent: Violet #8B5CF6
+- Success: #22C55E
+- Warning: #F59E0B
+- Critical: #EF4444
+- Primary text: #F8FAFC
+- Secondary text: #94A3B8
+
+Design details:
+
+- Deep navy backgrounds.
+- Glassmorphism used selectively.
+- Subtle glowing borders.
+- Premium gradients.
+- Thin grid patterns.
+- Soft radial lighting.
+- Smooth transitions.
+- Animated data visualizations.
+- Elegant typography.
+- High-quality spacing and alignment.
+- Subtle industrial textures.
+- Professional icons.
+- Beautiful chart animations.
+
+Use a consistent design system across all pages.
+
+Avoid excessive neon, excessive gradients, oversized rounded cards, childish illustrations, generic templates, and unnecessary decorative elements.
+
+The result must feel premium, trustworthy, technical, and enterprise-ready.
+
+Typography:
+Use Inter, Manrope, or a similarly premium modern sans-serif font.
+
+Use Lucide icons consistently.
+
+Use high-quality real industrial imagery where appropriate, but prioritize original CSS/WebGL visualizations over generic stock illustrations.
+
+---
+
+# 4. HERO SECTION — THE MOST IMPORTANT PART
+
+The hero section is the most important visual element of this entire project.
+
+Make it extraordinary.
+
+When judges first open the website, the hero should immediately communicate that IndustrySphere AI is a powerful industrial AI platform.
+
+Do NOT create a generic centered heading with a simple background image.
+
+Create a cinematic, immersive, interactive 3D hero experience.
+
+### 4.1 Hero Layout
+
+Use a full-screen or near-full-screen hero with:
+
+Top navigation:
+- IndustrySphere AI logo.
+- Platform.
+- Solutions.
+- Industries.
+- Technology.
+- About.
+- Sign In.
+- "Explore Live Demo" primary CTA.
+
+Hero text:
+
+Small top label:
+"INTELLIGENCE FOR THE INDUSTRIAL WORLD"
+
+Main headline:
+
+"Your Factory.
+One Step Ahead."
+
+Highlight "One Step Ahead" with an elegant cyan-to-blue gradient.
+
+Supporting paragraph:
+
+"Predict equipment failures, optimize production, and anticipate operational disruptions before they impact your business. One intelligent platform. Complete industrial visibility."
+
+Primary CTA:
+"Explore Live Demo"
+
+Secondary CTA:
+"Discover the Platform"
+
+Below the CTAs, add three short value indicators:
+
+- Predictive Maintenance
+- Production Intelligence
+- Supply Chain Resilience
+
+### 4.2 3D Industrial Digital Twin
+
+Create a visually stunning 3D industrial scene on the right side of the hero, or as an immersive full-width background with the text placed on the left.
+
+Use Three.js with React Three Fiber and Drei where practical.
+
+Build an original 3D digital twin environment featuring:
+
+- A modern smart factory.
+- Multiple industrial machines.
+- Rotating motors and mechanical components.
+- Conveyor systems.
+- Industrial robotic arms.
+- Floating sensor indicators.
+- Connected data nodes.
+- Animated energy/data pathways.
+- A subtle holographic network surrounding the factory.
+
+The factory should look like a sophisticated miniature industrial ecosystem, not a flat illustration.
+
+### 4.3 Interactive Machine Elements
+
+Make the 3D scene interactive.
+
+Users should be able to:
+
+- Rotate the scene.
+- Zoom in and out.
+- Move the camera slightly.
+- Hover over individual machines.
+- Click machines to view machine information.
+- See machine health indicators.
+- Identify normal, warning, and critical machines.
+
+On hover, show floating information panels such as:
+
+MOTOR-03
+Health Score: 31%
+Vibration: Abnormal
+Temperature: Elevated
+Risk Level: Critical
+
+Another example:
+
+PUMP-01
+Health Score: 94%
+Operating Status: Normal
+Risk Level: Low
+
+Machine indicators should use:
+- Green for healthy.
+- Amber for warning.
+- Red for critical.
+
+Add animated scanning effects and subtle glowing connections.
+
+### 4.4 Hero Live Data Strip
+
+At the bottom of the hero, add a premium horizontal industrial statistics strip.
+
+Example simulated demo values:
+
+- 128 Machines Monitored
+- 94.8% Average Asset Health
+- 18 Active Risk Alerts
+- 32% Estimated Downtime Reduction
+
+IMPORTANT:
+All these values must be marked as illustrative demo metrics, not verified customer results.
+
+Make them animated counters.
+
+### 4.5 Hero Background
+
+Use:
+- Subtle moving grid.
+- Floating particles.
+- Soft blue and violet lighting.
+- Animated circuit patterns.
+- Depth effects.
+- Elegant scroll transitions.
+
+The 3D environment must have a graceful fallback for devices that do not support WebGL or reduced-motion settings.
+
+Performance must remain smooth.
+
+---
+
+# 5. COMPLETE WEBSITE STRUCTURE
+
+Build a complete multi-page application.
+
+Create the following pages:
+
+1. Home
+2. Platform Overview
+3. Solutions
+4. Industries
+5. Technology
+6. Live Demo
+7. Application Dashboard
+8. Predictive Maintenance
+9. Machine Intelligence
+10. Production Intelligence
+11. Supply Chain Intelligence
+12. Weather Intelligence
+13. AI Copilot
+14. Analytics & Reports
+15. Alerts & Notifications
+16. Maintenance Planner
+17. Settings
+
+Use a consistent navigation system.
+
+For the main application, create a professional collapsible sidebar with:
+
+- Overview
+- Digital Twin
+- Machines
+- Predictive Maintenance
+- Production
+- Supply Chain
+- Weather Intelligence
+- AI Copilot
+- Maintenance Planner
+- Analytics
+- Alerts
+- Settings
+
+Create proper routing and functional navigation.
+
+Do not create multiple pages that are merely copies of the same dashboard.
+
+Each page must have a clear purpose and useful functionality.
+
+---
+
+# 6. LIVE DEMO ENVIRONMENT
+
+This is a competition prototype.
+
+We do NOT have access to real factories, industrial sensors, company databases, or private operational records.
+
+Therefore, create a complete, realistic, simulated industrial environment.
+
+IMPORTANT RULES:
+
+- Never claim that simulated machine data is real factory data.
+- Clearly label the environment as "DEMO / SIMULATED DATA".
+- Do not fabricate customer testimonials, partnerships, certifications, or verified performance claims.
+- Use realistic sample data and explain that real deployment requires sensor integration and factory-specific validation.
+
+Create a Demo Environment Selector.
+
+Available demo environments:
+
+1. Garments Factory
+2. Textile Manufacturing Plant
+3. Pharmaceutical Manufacturing Plant
+4. Food Processing Factory
+5. Cement Manufacturing Plant
+6. Automotive Manufacturing Plant
+7. Electronics Manufacturing Plant
+8. Power Generation Plant
+9. Agriculture Processing Facility
+10. Custom Industrial Facility
+
+When a user changes the selected industry, dynamically update:
+
+- Machines.
+- Machine categories.
+- Sensor parameters.
+- Production metrics.
+- Risk indicators.
+- Maintenance schedules.
+- Supply chain scenarios.
+- Dashboard statistics.
+
+Add a "Reset Demo" button.
+
+Add a "Run Simulation" button.
+
+Add a "Pause Simulation" button.
+
+Add a "Generate New Scenario" button.
+
+The simulation should actually update the application's state, charts, alerts, and AI predictions.
+
+---
+
+# 7. MAIN APPLICATION DASHBOARD
+
+Create an impressive industrial command center.
+
+The dashboard must give an owner or plant manager an immediate understanding of their entire operation.
+
+### 7.1 Top Header
+
+Include:
+
+- Selected factory name.
+- Selected industry.
+- Current date and time.
+- System connection indicator.
+- Demo mode indicator.
+- Notification icon.
+- User profile.
+
+### 7.2 KPI Cards
+
+Display:
+
+1. Total Machines
+2. Operational Machines
+3. Machines at Risk
+4. Critical Alerts
+5. Overall Machine Health
+6. Production Efficiency
+7. Estimated Downtime
+8. Maintenance Cost Overview
+
+Use dynamically calculated values from the current simulated dataset.
+
+Do not hardcode values that never change.
+
+### 7.3 Operational Overview
+
+Add:
+
+- Machine health distribution chart.
+- Production efficiency chart.
+- Downtime trend chart.
+- Machine status breakdown.
+- Risk distribution chart.
+- Recent activity timeline.
+
+### 7.4 Critical Alerts Panel
+
+Display real-time simulated alerts.
+
+Example:
+
+CRITICAL — Motor-03
+
+Abnormal vibration detected.
+
+Temperature is increasing beyond its configured operating threshold.
+
+Recommended action: Inspect bearings, alignment, and lubrication.
+
+Buttons:
+- View Machine
+- Analyze with AI
+- Schedule Maintenance
+
+### 7.5 Operational Insights
+
+Add an AI-generated insights section.
+
+Examples:
+
+- Motor-03 requires immediate inspection.
+- Pump-02 shows increasing vibration.
+- Production efficiency has decreased compared to the previous shift.
+- Raw material availability may affect the next production cycle.
+- A maintenance window is recommended for Line-02.
+
+Generate these insights from the actual current simulated state.
+
+---
+
+# 8. PREDICTIVE MAINTENANCE ENGINE — CORE FEATURE
+
+This is the central feature of IndustrySphere AI.
+
+Build a functional predictive maintenance module, not a static information page.
+
+### 8.1 Machine Monitoring
+
+Each machine must have a detailed profile.
+
+Include:
+
+- Machine ID.
+- Machine name.
+- Industry.
+- Machine category.
+- Manufacturer.
+- Model.
+- Installation date.
+- Operating hours.
+- Operating status.
+- Current temperature.
+- Vibration level.
+- Current consumption.
+- RPM.
+- Torque, where applicable.
+- Pressure, where applicable.
+- Historical sensor data.
+- Maintenance history.
+- Current health score.
+- Failure risk score.
+- Predicted failure category.
+- Recommended maintenance action.
+
+### 8.2 Machine Health Score
+
+Create a dynamic machine health score from 0–100.
+
+Example:
+
+90–100: Excellent
+75–89: Good
+50–74: Warning
+25–49: Critical
+0–24: Severe
+
+Make the health calculation configurable based on machine category and sensor availability.
+
+Do not use one identical threshold for every industrial asset.
+
+### 8.3 Predictive Risk Classification
+
+Create a predictive risk classification system:
+
+- Low Risk
+- Moderate Risk
+- High Risk
+- Critical Risk
+
+The system should evaluate sensor behavior, operational parameters, historical trends, and configured thresholds.
+
+### 8.4 AI Prediction Engine
+
+Implement an actual working prediction engine.
+
+For the prototype, use a transparent, deterministic TypeScript-based simulation and anomaly-scoring engine that can analyze generated sensor data.
+
+Use:
+- Moving averages.
+- Rate-of-change analysis.
+- Configurable thresholds.
+- Sensor anomaly detection.
+- Weighted risk scoring.
+- Historical trend analysis.
+- Machine-specific risk profiles.
+
+If a Python ML backend is available, provide an integration-ready architecture for Random Forest, XGBoost, Isolation Forest, and Remaining Useful Life estimation.
+
+Do not pretend that a frontend rule-based simulation is a validated trained ML model.
+
+Make the system architecture ready for replacing the simulated prediction engine with a trained model later.
+
+### 8.5 Failure Prediction
+
+Show:
+
+- Potential failure type.
+- Risk score.
+- Main contributing factors.
+- Confidence or uncertainty information.
+- Recommended inspection window.
+- Possible operational consequences.
+
+Example:
+
+Machine: Industrial Motor M-03
+
+Detected anomalies:
+- Vibration increased by 38% from its baseline.
+- Temperature is trending upward.
+- Power consumption is abnormal.
+
+AI Assessment:
+Elevated bearing-related failure risk.
+
+Recommended Action:
+Inspect motor bearings, check lubrication, and verify shaft alignment.
+
+Clearly identify these as simulated findings.
+
+Never show false certainty such as guaranteed failure within a precise number of hours.
+
+### 8.6 Sensor Visualization
+
+Create live animated charts for:
+
+- Temperature.
+- Vibration.
+- Power consumption.
+- RPM.
+- Operating hours.
+- Machine health.
+
+Include time filters:
+
+- Last 1 hour
+- Last 6 hours
+- Last 24 hours
+- Last 7 days
+- Last 30 days
+
+### 8.7 Interactive Sensor Simulation
+
+This is essential.
+
+Create interactive controls for machine parameters:
+
+- Temperature slider.
+- Vibration slider.
+- Power consumption slider.
+- RPM slider.
+- Operating hours control.
+
+When the user changes these values:
+
+1. Update the sensor readings.
+2. Recalculate the health score.
+3. Recalculate the risk level.
+4. Update the charts.
+5. Trigger alerts if necessary.
+6. Generate a new AI assessment.
+7. Update the dashboard.
+8. Update the machine's digital twin visual status.
+
+The entire experience must be connected to one shared state.
+
+---
+
+# 9. DIGITAL TWIN — INTERACTIVE FACTORY MAP
+
+Build a dedicated Digital Twin page.
+
+Show a top-down or isometric 3D factory layout.
+
+Include:
+
+- Production zones.
+- Individual machines.
+- Production lines.
+- Conveyor systems.
+- Storage zones.
+- Utilities.
+- Maintenance zones.
+
+Allow the user to click a machine to open its live information panel.
+
+Display health indicators above each machine.
+
+Add a machine connection visualization showing how machine failures can affect connected production lines.
+
+Add camera controls:
+
+- Zoom.
+- Rotate.
+- Reset View.
+- Focus on Critical Machines.
+
+When a machine enters critical status, visually highlight its location.
+
+This page must feel like an industrial digital twin command environment.
+
+Use 3D where practical; provide a high-quality interactive 2D fallback.
+
+---
+
+# 10. PRODUCTION INTELLIGENCE
+
+Build a production monitoring and optimization module.
+
+Monitor:
+
+- Production output.
+- Target production.
+- Actual production.
+- Production efficiency.
+- Machine utilization.
+- Production line status.
+- Bottlenecks.
+- Unplanned downtime.
+- Shift performance.
+- Estimated completion time.
+
+### AI Capabilities
+
+The system should identify:
+
+- Which production line is slowing down.
+- Which machine is causing a bottleneck.
+- Whether machine downtime affects production targets.
+- Whether a maintenance schedule conflicts with production.
+- How an operational disruption may affect delivery deadlines.
+
+### Interactive Production Scenario
+
+Create a scenario:
+
+Production target: 10,000 units.
+
+A critical machine becomes unavailable.
+
+The system calculates an illustrative impact based on:
+
+- Machine capacity.
+- Production line dependencies.
+- Remaining production time.
+- Available alternative machines.
+- Production schedule.
+
+Show:
+
+- Estimated production shortfall.
+- Estimated delay.
+- Recommended alternative production plan.
+- Suggested maintenance window.
+
+All calculations should be connected to demo data, not static text.
+
+---
+
+# 11. SUPPLY CHAIN INTELLIGENCE
+
+This is another major feature.
+
+IndustrySphere AI should help organizations understand how supplier and logistics disruptions can affect production.
+
+Create a complete Supply Chain Intelligence page.
+
+### 11.1 Supplier Management
+
+Each supplier profile should contain:
+
+- Supplier ID.
+- Supplier name.
+- Supplied material.
+- Delivery lead time.
+- Expected delivery date.
+- Current shipment status.
+- Reliability score.
+- Delay history.
+- Dependency level.
+
+Use realistic demo suppliers, but never imply that they are actual business partners.
+
+### 11.2 Raw Material Monitoring
+
+Monitor:
+
+- Current inventory.
+- Minimum stock level.
+- Reorder threshold.
+- Daily consumption.
+- Estimated days of inventory remaining.
+- Incoming stock.
+- Potential shortage.
+
+### 11.3 Delay Prediction
+
+Simulate:
+
+- Supplier delay.
+- Port congestion.
+- Road disruption.
+- Weather disruption.
+- Transport delay.
+- Inventory shortage.
+
+The system should calculate how each scenario may affect production.
+
+### 11.4 AI Recommendations
+
+Examples:
+
+- Place a reorder before the stock reaches its critical threshold.
+- Consider an alternative supplier.
+- Adjust production scheduling.
+- Prioritize products using available inventory.
+- Prepare a contingency plan for delayed shipments.
+
+### 11.5 Supply Chain Network Visualization
+
+Create an interactive network diagram:
+
+Supplier → Raw Materials → Warehouse → Production → Finished Goods → Customer Delivery.
+
+Show dependency connections and disruption propagation.
+
+---
+
+# 12. WEATHER & ENVIRONMENTAL INTELLIGENCE
+
+Create a dedicated Weather Intelligence page.
+
+This feature must be useful for Bangladesh and other geographical regions.
+
+Monitor:
+
+- Heavy rainfall.
+- Flood risk.
+- Cyclone alerts, where reliable data is available.
+- Extreme temperature.
+- Humidity.
+- Road disruption risk.
+- Transport disruption risk.
+- Port and shipping disruption scenarios.
+
+### Data Integration
+
+If feasible, integrate a public weather service such as Open-Meteo.
+
+Support location selection:
+
+- Dhaka.
+- Chattogram.
+- Gazipur.
+- Narayanganj.
+- Savar.
+- Khulna.
+- Other custom locations.
+
+Show:
+
+- Current weather.
+- Forecast.
+- Rainfall probability.
+- Temperature.
+- Humidity.
+- Weather warnings when available.
+- Last updated time.
+- Data source.
+
+If live weather access fails, use clearly labelled simulated data.
+
+Never fabricate official cyclone, flood, or emergency warnings.
+
+### Weather Impact Analysis
+
+The platform should connect weather conditions to industrial operations.
+
+Examples:
+
+Heavy Rainfall:
+- Possible raw material delivery delay.
+- Transport disruption.
+- Warehouse waterlogging risk.
+
+Extreme Heat:
+- Cooling system demand increases.
+- Equipment thermal stress may increase.
+- Worker comfort and productivity may be affected.
+
+Flood Risk:
+- Logistics disruption.
+- Potential facility access problems.
+- Raw material supply interruption.
+
+### Interactive Weather Scenario
+
+Let the user simulate:
+
+- Heavy rainfall.
+- Flood scenario.
+- Extreme heat.
+- Transport disruption.
+
+Then show estimated impacts on:
+
+- Supplier arrival.
+- Inventory.
+- Production.
+- Delivery deadlines.
+
+Clearly separate forecast information from simulated impact analysis.
+
+---
+
+# 13. AI COPILOT — INDUSTRIAL INTELLIGENCE ASSISTANT
+
+Create a sophisticated AI assistant called:
+
+**Sphere Copilot**
+
+It should be accessible through a dedicated page and a floating assistant button.
+
+Its purpose is to help factory owners, production managers, and maintenance engineers understand industrial operations.
+
+### Suggested Questions
+
+- Which machine needs immediate attention?
+- Why is Motor-03 at critical risk?
+- What is causing the production slowdown?
+- Which maintenance tasks should be prioritized?
+- What happens if our main supplier is delayed?
+- How much inventory remains?
+- Which machines have abnormal vibration?
+- What should we do to reduce downtime?
+- Which production line is at risk?
+- Summarize today's factory performance.
+
+### AI Response Requirements
+
+Sphere Copilot must use the current demo environment's actual data.
+
+It should:
+
+1. Read machine data.
+2. Analyze risk levels.
+3. Explain contributing factors.
+4. Summarize operational consequences.
+5. Recommend appropriate actions.
+6. Reference relevant machines or production lines.
+
+Do not make it a generic chatbot that responds without knowing the dashboard state.
+
+If no LLM API key is configured, implement a functional local context-aware assistant with predefined intent handling and deterministic responses.
+
+If an LLM integration is configured, use it for natural-language explanations grounded in the current system data.
+
+Never invent sensor readings, equipment specifications, or external facts.
+
+Show an explicit disclaimer that AI recommendations support, rather than replace, qualified engineering decisions.
+
+---
+
+# 14. SMART MAINTENANCE PLANNER
+
+Build a complete Maintenance Planner.
+
+Features:
+
+- Upcoming maintenance.
+- Overdue maintenance.
+- Critical maintenance.
+- Machine-wise maintenance history.
+- Maintenance task creation.
+- Priority selection.
+- Assigned technician.
+- Due date.
+- Estimated duration.
+- Maintenance status.
+
+Statuses:
+
+- Scheduled
+- In Progress
+- Completed
+- Overdue
+- Cancelled
+
+Create a calendar and list view.
+
+When AI detects elevated risk, allow users to create a maintenance task directly from the prediction panel.
+
+Allow users to mark maintenance as completed.
+
+When maintenance is completed, simulate the improvement in machine health and reset relevant sensor conditions, while preserving the historical event.
+
+---
+
+# 15. ALERTS & NOTIFICATION CENTER
+
+Create a complete alert management system.
+
+Alert categories:
+
+- Machine Failure Risk
+- Abnormal Temperature
+- Abnormal Vibration
+- Power Consumption
+- Production Bottleneck
+- Supplier Delay
+- Inventory Shortage
+- Weather Disruption
+- Maintenance Overdue
+
+Priority levels:
+
+- Critical
+- High
+- Medium
+- Low
+
+Functional features:
+
+- Mark as read.
+- Mark all as read.
+- Filter by priority.
+- Filter by category.
+- Search alerts.
+- View alert details.
+- Open associated machine.
+- Create maintenance task.
+- Resolve alert.
+- View alert history.
+
+Generate new alerts automatically when simulation parameters cross configured thresholds.
+
+---
+
+# 16. ANALYTICS & REPORTING
+
+Build a professional analytics center.
+
+Include:
+
+- Machine performance trends.
+- Machine health distribution.
+- Downtime analysis.
+- Failure risk analysis.
+- Maintenance cost trends.
+- Production efficiency.
+- Production target achievement.
+- Supplier performance.
+- Inventory risk.
+- Weather-related operational risk.
+
+Allow date filtering.
+
+Create report generation features:
+
+- Daily Operational Report.
+- Weekly Maintenance Report.
+- Monthly Factory Performance Report.
+- Machine Health Report.
+- Supply Chain Risk Report.
+
+Allow downloading reports as CSV and PDF where practical.
+
+Include a clear report disclaimer stating that competition-demo reports use simulated data.
+
+Charts must use dynamically calculated data.
+
+---
+
+# 17. SMART RECOMMENDATION ENGINE
+
+Create a dedicated recommendation system.
+
+Every recommendation must include:
+
+- Issue detected.
+- Why it matters.
+- Risk level.
+- Recommended action.
+- Expected operational benefit.
+- Priority.
+- Relevant machine or process.
+
+Example:
+
+ISSUE:
+Motor-03 vibration is increasing.
+
+WHY IT MATTERS:
+The current pattern may indicate mechanical wear or misalignment.
+
+RECOMMENDATION:
+Inspect the bearings and verify alignment.
+
+PRIORITY:
+High.
+
+EXPECTED BENEFIT:
+Potentially reduce the risk of unplanned equipment downtime.
+
+Use careful language. Do not promise guaranteed savings or guaranteed failure prevention.
+
+---
+
+# 18. GLOBAL INDUSTRIAL INTELLIGENCE
+
+IndustrySphere AI should be adaptable beyond a single factory.
+
+Create a multi-facility architecture concept.
+
+Allow the demo user to switch between:
+
+- Factory A — Garments.
+- Factory B — Pharmaceutical.
+- Factory C — Food Processing.
+- Factory D — Cement.
+- Factory E — Electronics.
+
+Each facility must maintain separate:
+
+- Machines.
+- Sensor configurations.
+- Production metrics.
+- Alerts.
+- Suppliers.
+- Maintenance schedules.
+- Operational history.
+
+Create a global overview page that displays all facilities together.
+
+This demonstrates how an enterprise can monitor multiple industrial locations from a unified platform.
+
+---
+
+# 19. AUTHENTICATION & USER EXPERIENCE
+
+Create a professional sign-in experience.
+
+Demo access should work without requiring a real account or payment.
+
+Include:
+
+- Explore Demo button.
+- Demo account option.
+- Login UI.
+- Profile settings.
+- Industry selection.
+- Factory selection.
+- User preferences.
+
+If Supabase is connected, implement authentication and database persistence.
+
+If Supabase is unavailable, implement a fully functional local demo using persistent browser storage where appropriate.
+
+Support demo roles:
+
+- Factory Owner
+- Plant Manager
+- Maintenance Engineer
+- Production Manager
+
+Show role-appropriate navigation and information where practical.
+
+Do not make the entire demo inaccessible behind authentication.
+
+---
+
+# 20. TECHNOLOGY & ARCHITECTURE PAGE
+
+Create a beautiful technical architecture page explaining how IndustrySphere AI works.
+
+Show this architecture visually:
+
+INDUSTRIAL ASSETS
+↓
+SENSOR & DATA COLLECTION
+↓
+DATA PROCESSING & STORAGE
+↓
+AI / ML PREDICTION ENGINE
+↓
+INDUSTRIAL INTELLIGENCE LAYER
+↓
+DASHBOARD & AI RECOMMENDATIONS
+↓
+HUMAN DECISION & ACTION
+
+### Sensor Layer
+
+- Vibration sensors.
+- Temperature sensors.
+- Current sensors.
+- Pressure sensors.
+- RPM sensors.
+- IoT gateways.
+- Existing machine telemetry.
+
+### Data Layer
+
+- Time-series data.
+- Historical maintenance records.
+- Equipment metadata.
+- Production records.
+- Supplier records.
+
+### AI Layer
+
+- Anomaly detection.
+- Failure risk classification.
+- Remaining Useful Life estimation.
+- Predictive analytics.
+- Production optimization.
+- Supply-chain risk analysis.
+
+### Integration Layer
+
+Explain possible future integrations with:
+
+- MQTT.
+- OPC UA.
+- Modbus.
+- Industrial IoT gateways.
+- ERP systems.
+- MES systems.
+- CMMS systems.
+- Public weather APIs.
+
+Do not imply all integrations are already operational in the demo.
+
+---
+
+# 21. INTERNATIONAL INSPIRATION & RESEARCH SECTION
+
+Create a research and inspiration section.
+
+Show how the product draws inspiration from established industrial concepts.
+
+### Toyota
+
+Reference:
+- Toyota Production System.
+- Just-in-Time.
+- Jidoka.
+- Kaizen.
+- Predictive maintenance approaches.
+
+Official website:
+https://global.toyota/en/company/vision-and-philosophy/production-system/
+
+### Xiaomi
+
+Reference:
+- Xiaomi Hyper Intelligent Manufacturing Platform.
+- Industrial digitalization.
+- Smart manufacturing.
+- Automated production.
+- Industrial AI.
+
+Official website:
+https://www.mi.com/global/
+
+### UCI Predictive Maintenance Dataset
+
+Reference:
+AI4I 2020 Predictive Maintenance Dataset.
+
+https://archive.ics.uci.edu/dataset/601/ai4i
+
+Explain that this is a synthetic benchmark dataset used for machine-learning experimentation.
+
+### Bangladesh Context
+
+Include a Bangladesh-focused industry opportunity section.
+
+Explain the importance of:
+
+- Reducing unplanned downtime.
+- Improving machine utilization.
+- Making maintenance more proactive.
+- Supporting SME manufacturers.
+- Improving production planning.
+- Building supply-chain resilience.
+- Making industrial AI more accessible.
+
+Do not invent official statistics.
+
+If showing Bangladesh industrial statistics, display the source, publication date, and a clickable reference.
+
+Separate research-backed information from company vision and simulated demo metrics.
+
+IMPORTANT:
+IndustrySphere AI is an independent proposed platform. Do not claim affiliation, endorsement, or partnership with Toyota, Xiaomi, AWS, or any other organization.
+
+---
+
+# 22. HOME PAGE — ADDITIONAL SECTIONS
+
+After the hero, create a beautiful and persuasive homepage.
+
+### Section A: The Industrial Challenge
+
+Headline:
+
+"Industrial Disruptions Don't Wait. Why Should You?"
+
+Show four challenges:
+
+- Unexpected Machine Failure.
+- Unplanned Production Downtime.
+- Unpredictable Supply Chain Delays.
+- Reactive Maintenance Decisions.
+
+### Section B: The IndustrySphere Solution
+
+Headline:
+
+"From Reactive Operations to Predictive Intelligence."
+
+Show the platform's core modules in a visually engaging layout.
+
+### Section C: How It Works
+
+Create a 5-step animated process:
+
+1. Connect Industrial Assets.
+2. Collect Operational Data.
+3. Analyze with AI.
+4. Predict Risks.
+5. Recommend Preventive Actions.
+
+### Section D: Industries We Empower
+
+Use beautiful industry cards with appropriate imagery and interactive hover effects.
+
+### Section E: Interactive Product Preview
+
+Show a smaller dashboard preview with animated sample sensor data.
+
+Add a button to open the full live demo.
+
+### Section F: Why IndustrySphere AI?
+
+Highlight:
+
+- Affordable Industrial Intelligence.
+- Multi-Industry Compatibility.
+- Predictive Maintenance.
+- Proactive Decision Support.
+- Scalable Architecture.
+- Bangladesh-First Design.
+
+### Section G: Technology Stack
+
+Display the relevant technologies and industrial protocols.
+
+### Section H: Final CTA
+
+Headline:
+
+"Make Your Industry Ready for Tomorrow."
+
+Supporting text:
+
+"Start understanding your machines, anticipating risks, and making smarter operational decisions."
+
+CTA:
+"Experience IndustrySphere AI"
+
+### Footer
+
+Include:
+
+- Brand.
+- Platform links.
+- Industry links.
+- Technology links.
+- Contact placeholder.
+- GitHub placeholder.
+- Privacy Policy.
+- Terms of Use.
+- Demo Disclaimer.
+
+Do not invent a company address, phone number, or email.
+
+---
+
+# 23. TECHNICAL IMPLEMENTATION REQUIREMENTS
+
+Recommended stack:
+
+Frontend:
+- React.
+- TypeScript.
+- Vite or the existing Lovable project setup.
+- Tailwind CSS.
+- shadcn/ui.
+- Lucide React.
+
+3D:
+- Three.js.
+- React Three Fiber.
+- Drei.
+
+Charts:
+- Recharts.
+
+Backend:
+- Supabase if available and appropriate.
+- Otherwise, a structured local demo data layer.
+
+AI:
+- TypeScript-based deterministic prediction engine for the working prototype.
+- Python/FastAPI integration-ready architecture for future trained ML models.
+- Optional LLM integration for Sphere Copilot.
+
+Weather:
+- Open-Meteo or another reliable public API.
+- Graceful fallback to simulated data.
+
+### Code Quality
+
+- Use reusable React components.
+- Use a clear folder structure.
+- Use TypeScript types.
+- Keep prediction logic separate from UI.
+- Use a shared application state.
+- Avoid duplicated business logic.
+- Implement proper error handling.
+- Implement loading states.
+- Implement empty states.
+- Implement responsive layouts.
+- Add accessible labels.
+- Support keyboard navigation.
+- Respect reduced-motion preferences.
+
+### Suggested Project Structure
+
+src/
+  components/
+    layout/
+    dashboard/
+    charts/
+    machines/
+    alerts/
+    digital-twin/
+    copilot/
+    shared/
+
+  pages/
+    Home.tsx
+    Platform.tsx
+    Industries.tsx
+    Technology.tsx
+    Dashboard.tsx
+    Machines.tsx
+    PredictiveMaintenance.tsx
+    Production.tsx
+    SupplyChain.tsx
+    Weather.tsx
+    Copilot.tsx
+    Analytics.tsx
+    MaintenancePlanner.tsx
+    Alerts.tsx
+    Settings.tsx
+
+  services/
+    predictionEngine.ts
+    simulationEngine.ts
+    weatherService.ts
+    analyticsService.ts
+    recommendationEngine.ts
+
+  data/
+    industries.ts
+    demoFactories.ts
+    demoMachines.ts
+    demoSuppliers.ts
+
+  hooks/
+  types/
+  utils/
+
+Adapt this structure if the project architecture requires a better organization.
+
+---
+
+# 24. FUNCTIONALITY CHECKLIST — NOTHING SHOULD BE STATIC
+
+This is a strict requirement.
+
+Do not leave non-functional buttons or decorative controls that appear to work.
+
+Verify the following:
+
+[ ] Navigation works.
+[ ] Hero CTA opens the live demo.
+[ ] 3D factory responds to mouse interactions.
+[ ] Machine selection works.
+[ ] Industry selection updates demo data.
+[ ] Factory selection updates dashboard data.
+[ ] Simulation starts and pauses.
+[ ] Reset Demo works.
+[ ] Sensor sliders change readings.
+[ ] Machine health recalculates.
+[ ] Risk scores recalculate.
+[ ] Alerts are generated dynamically.
+[ ] AI explanations update.
+[ ] Dashboard KPIs update.
+[ ] Charts update.
+[ ] Production scenarios calculate operational impact.
+[ ] Supplier delay scenarios update.
+[ ] Inventory calculations work.
+[ ] Weather scenario controls work.
+[ ] Maintenance tasks can be created.
+[ ] Maintenance status can be changed.
+[ ] Completed maintenance updates the relevant machine state.
+[ ] Alerts can be filtered and resolved.
+[ ] Search works.
+[ ] Reports can be exported.
+[ ] Copilot responds using current demo data.
+[ ] Industry-specific profiles work.
+[ ] Multi-facility switching works.
+[ ] Responsive mobile navigation works.
+[ ] Empty states and error states are handled.
+[ ] Demo data is clearly identified as simulated.
+
+If a feature is not fully implemented, do not represent it as completed.
+
+---
+
+# 25. DEMO STORYLINE FOR COMPETITION JUDGES
+
+Build the platform around this scenario.
+
+A simulated Bangladeshi manufacturing factory is preparing to deliver an important order.
+
+The factory has several operational machines, raw material suppliers, and production targets.
+
+At first, all machines appear healthy.
+
+Then:
+
+EVENT 1:
+Motor-03 begins showing abnormal vibration.
+
+EVENT 2:
+Temperature gradually increases.
+
+EVENT 3:
+The predictive engine detects an abnormal pattern and increases the machine's failure risk.
+
+EVENT 4:
+Sphere Copilot explains the possible cause and recommends an inspection.
+
+EVENT 5:
+The plant manager schedules maintenance before a potential breakdown.
+
+EVENT 6:
+A simulated supplier delivery delay is introduced.
+
+EVENT 7:
+Weather Intelligence identifies a potential logistics disruption scenario.
+
+EVENT 8:
+Production Intelligence recalculates the possible impact on the delivery schedule.
+
+EVENT 9:
+The system recommends inventory adjustments and alternative production scheduling.
+
+EVENT 10:
+The dashboard provides an updated operational overview.
+
+Create a dedicated "Guided Demo" mode with a step-by-step button:
+
+"Start Guided Demo"
+
+"Next Step"
+
+"Previous Step"
+
+"Reset Scenario"
+
+Make it possible for judges to experience the full story in approximately 3–5 minutes.
+
+Each step must update the actual application state.
+
+---
+
+# 26. FINAL DESIGN & QUALITY EXPECTATIONS
+
+The finished website must satisfy these standards:
+
+1. The hero section must be exceptionally impressive.
+2. The 3D factory visualization must be a genuine interactive experience.
+3. The application must feel like a real industrial AI SaaS platform.
+4. The dashboard must be data-rich but easy to understand.
+5. Predictive Maintenance must be the strongest and most functional module.
+6. Supply Chain and Weather Intelligence must be integrated into the operational workflow.
+7. The product must support multiple industries.
+8. The AI engine must produce meaningful and explainable outputs.
+9. The demo must work without physical sensors or a real factory.
+10. The interface must be responsive and polished.
+11. The website must be suitable for live competition judging.
+12. Do not sacrifice functionality for visual effects.
+
+### IMPORTANT DEVELOPMENT INSTRUCTIONS
+
+- Build the actual application, not just a design mockup.
+- Do not stop after generating the homepage.
+- Do not leave placeholder cards for important modules.
+- Do not use fake buttons.
+- Do not generate charts with permanently hardcoded values.
+- Do not claim simulated data is real.
+- Do not make unsupported claims about prediction accuracy.
+- Do not use random AI-generated text unrelated to actual application data.
+- Do not sacrifice the 3D hero's quality.
+- Do not remove any major module to simplify the project without explaining the limitation.
+- If implementation requires multiple stages, continue building the remaining modules while preserving the existing design and functionality.
+- Prioritize a working core prediction engine, shared data state, and guided demo over superficial feature counts.
+- Test the main user journey and fix errors before considering the build complete.
+
+**FINAL PRODUCT GOAL:**
+
+When a judge opens IndustrySphere AI, the first impression should be:
+
+"This looks like a serious industrial technology platform."
+
+When they explore the dashboard, they should understand the business value.
+
+When they change sensor readings, they should see the AI prediction change.
+
+When they trigger a disruption, they should see how it affects production and delivery.
+
+And when they use Sphere Copilot, they should receive actionable, context-aware industrial insights.
+
+**Build IndustrySphere AI as a premium, intelligent, interactive, multi-industry industrial command platform — designed for Bangladesh, but ready for the world.**

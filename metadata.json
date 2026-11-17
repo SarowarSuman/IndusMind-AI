@@ -1,0 +1,6 @@
+{
+  "name": "IndustrySphere AI",
+  "description": "AI-Powered Industrial Intelligence & Predictive Plant Platform with Interactive 3D Digital Twin, Predictive Maintenance Engine, Production & Supply Chain Analytics, and Weather Risk Intelligence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

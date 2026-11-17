@@ -1,0 +1,117 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-tight: "Inter Tight", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: "Plus Jakarta Sans", "Inter Tight", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: "Manrope", "Inter Tight", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+    --u: clamp(0.72px, min(100vw / 1440, 100vh / 960), 1.5px);
+    --night: #0f1626;
+    --ink: #f4f6fa;
+    --pill-grey: #2a3245;
+    --lime: #c6ff2e;
+    --cyan-mark: #3fd8ff;
+    --hairline: rgba(255, 255, 255, 0.22);
+  }
+
+  @media (max-width: 760px) {
+    :root {
+      --u: 1px;
+    }
+  }
+
+  html {
+    font-family: var(--font-sans);
+    background-color: #0f1626;
+    color: #f4f6fa;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-tight {
+    font-family: var(--font-tight);
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.industrial-grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(59, 130, 246, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(59, 130, 246, 0.055) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.radial-cyan-glow {
+  background: radial-gradient(600px circle at 70% 35%, rgba(0, 229, 255, 0.09), transparent 60%),
+    radial-gradient(500px circle at 25% 65%, rgba(139, 92, 246, 0.07), transparent 60%);
+}
+
+@keyframes norvaSpinMark {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-mark-spin {
+  animation: norvaSpinMark 1.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.process-body-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.process-row-active .process-body-grid {
+  grid-template-rows: 1fr;
+}
+
+.process-body-inner {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-mark-spin {
+    animation: none !important;
+  }
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom subtle scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070b14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
