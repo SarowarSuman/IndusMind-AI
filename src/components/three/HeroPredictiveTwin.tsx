@@ -123,9 +123,12 @@ export const HeroPredictiveTwin: React.FC<HeroPredictiveTwinProps> = ({
     scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
     scene.environmentIntensity = 0.55;
 
+    const initW = container.clientWidth || window.innerWidth || 1200;
+    const initH = container.clientHeight || window.innerHeight || 720;
+    const initAspect = initW / initH;
     const camera = new THREE.PerspectiveCamera(
-      38,
-      (container.clientWidth || 1200) / (container.clientHeight || 720),
+      initAspect < 0.85 ? 48 : 38,
+      initAspect,
       0.5,
       180
     );
@@ -135,9 +138,22 @@ export const HeroPredictiveTwin: React.FC<HeroPredictiveTwinProps> = ({
     controls.enableDamping = true;
     controls.dampingFactor = 0.06;
     controls.enableZoom = false; // preserve page scroll!
+    controls.enablePan = false;
     controls.minPolarAngle = 0.42;
     controls.maxPolarAngle = Math.PI / 2 - 0.14;
     controls.target.set(0, 1.5, 0);
+
+    // Crucial for mobile: allow native vertical page scroll while preserving PC mouse orbit
+    renderer.domElement.style.touchAction = "pan-y";
+
+    const onPointerDownCapture = (e: PointerEvent) => {
+      if (e.pointerType === "mouse") {
+        controls.enabled = true;
+      } else {
+        controls.enabled = false;
+      }
+    };
+    renderer.domElement.addEventListener("pointerdown", onPointerDownCapture, { capture: true });
 
     const onControlStart = () => {
       userInteractingRef.current = true;
@@ -489,12 +505,16 @@ export const HeroPredictiveTwin: React.FC<HeroPredictiveTwinProps> = ({
 
     const onResize = () => {
       if (!container) return;
-      const w = container.clientWidth || 1200;
-      const h = container.clientHeight || 720;
-      camera.aspect = w / h;
+      const w = Math.max(280, container.clientWidth || window.innerWidth);
+      const h = Math.max(280, container.clientHeight || window.innerHeight);
+      const aspect = w / h;
+      camera.fov = aspect < 0.85 ? 48 : 38;
+      camera.aspect = aspect;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
     };
+    const ro = new ResizeObserver(onResize);
+    ro.observe(container);
     window.addEventListener("resize", onResize);
 
     // Animation loop with SwiftShader pacing
@@ -573,8 +593,10 @@ export const HeroPredictiveTwin: React.FC<HeroPredictiveTwinProps> = ({
     return () => {
       disposed = true;
       cancelAnimationFrame(raf);
+      ro.disconnect();
       window.removeEventListener("resize", onResize);
       controls.removeEventListener("start", onControlStart);
+      renderer.domElement.removeEventListener("pointerdown", onPointerDownCapture, { capture: true });
       renderer.domElement.removeEventListener("pointermove", onPointerMove);
       renderer.domElement.removeEventListener("click", onClick);
       controls.dispose();

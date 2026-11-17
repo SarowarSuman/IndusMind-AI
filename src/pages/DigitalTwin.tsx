@@ -115,7 +115,7 @@ export const DigitalTwin: React.FC = () => {
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
         <div className="lg:col-span-8">
           {viewMode === "3d" ? (
-            <div className="h-[520px] w-full">
+            <div className="h-[340px] sm:h-[440px] lg:h-[520px] w-full">
               <FactoryTwin3D
                 machines={activeFacility.machines}
                 selectedMachineId={selectedMachineId}
@@ -128,8 +128,8 @@ export const DigitalTwin: React.FC = () => {
               />
             </div>
           ) : (
-            <div className="h-[520px] rounded-xl border border-slate-800 bg-[#0D1422] p-5 flex flex-col justify-between">
-              <div className="flex items-center justify-between text-xs text-slate-400">
+            <div className="min-h-[380px] lg:min-h-[520px] rounded-xl border border-slate-800 bg-[#0D1422] p-4 sm:p-5 flex flex-col justify-between gap-4">
+              <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
                 <span>2D Plant Zone Layout & Connected Line Topology</span>
                 <span className="font-mono">Zones: Production · Utilities · Packaging · Power</span>
               </div>

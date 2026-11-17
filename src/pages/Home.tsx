@@ -250,9 +250,9 @@ export const Home: React.FC = () => {
       <section
         ref={trackRef}
         aria-label="Interactive 3D Predictive Plant Command Hero"
-        className="relative h-[300vh] w-full bg-[#0f1626]"
+        className="relative h-[185vh] md:h-[260vh] w-full bg-[#0f1626]"
       >
-        <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#0f1626]">
+        <div className="sticky top-0 h-[100dvh] md:h-screen w-full overflow-hidden bg-[#0f1626]">
           {/* Live Interactive Three.js 3D Night-City Predictive Plant */}
           <div className="absolute inset-0">
             <HeroPredictiveTwin mode={heroMode} scrollProgress={progress} />
@@ -272,7 +272,7 @@ export const Home: React.FC = () => {
 
           {/* Centered Headline + Interactive Control Mode Bar inside 900u perspective */}
           <div
-            className="absolute left-0 right-0 flex flex-col items-center text-center px-4 font-tight pointer-events-none"
+            className="absolute left-0 right-0 flex flex-col items-center text-center px-4 font-tight pointer-events-none max-[760px]:!top-[72px]"
             style={{
               top: "calc(78 * var(--u))",
               perspective: "calc(900 * var(--u))",
@@ -293,7 +293,7 @@ export const Home: React.FC = () => {
                   letterSpacing: "-0.045em",
                   color: "#f4f6fa",
                 }}
-                className="font-tight font-semibold tracking-[-0.045em] max-[760px]:!text-[clamp(36px,10.5vw,48px)]"
+                className="font-tight font-semibold tracking-[-0.045em] max-[760px]:!text-[clamp(28px,8.5vw,42px)]"
               >
                 Predictive Plant.
                 <br />
@@ -307,7 +307,7 @@ export const Home: React.FC = () => {
                   lineHeight: 1.4,
                   color: "rgba(244, 246, 250, 0.78)",
                 }}
-                className="mx-auto max-w-2xl font-normal max-[760px]:!text-[14px] max-[760px]:max-w-[34ch]"
+                className="mx-auto max-w-2xl font-normal max-[760px]:!mt-2.5 max-[760px]:!text-[13px] max-[760px]:max-w-[34ch]"
               >
                 Zero machine damage. Zero delivery delays. Zero workplace accidents. Built for every
                 industry.
@@ -316,7 +316,7 @@ export const Home: React.FC = () => {
               {/* Interactive 3D Hero Control Pills */}
               <div
                 style={{ marginTop: "calc(20 * var(--u))" }}
-                className="pointer-events-auto inline-flex flex-wrap items-center justify-center gap-2 max-w-3xl"
+                className="pointer-events-auto inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 max-w-3xl max-[760px]:!mt-3.5"
               >
                 {HERO_MODES.map((m) => {
                   const active = heroMode === m.id;
@@ -324,7 +324,7 @@ export const Home: React.FC = () => {
                     <button
                       key={m.id}
                       onClick={() => setHeroMode(m.id)}
-                      className={`rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-wider transition-all border ${
+                      className={`rounded-full px-3 sm:px-3.5 py-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider transition-all border ${
                         active
                           ? "bg-[#c6ff2e] text-[#0f1626] border-[#c6ff2e]"
                           : "bg-[#0f1626]/85 text-[#f4f6fa]/85 border-white/20 hover:border-[#3fd8ff]"
@@ -335,19 +335,30 @@ export const Home: React.FC = () => {
                   );
                 })}
               </div>
+
+              {/* Mobile Quick Enter CTA */}
+              <div className="md:hidden pointer-events-auto mt-3.5 flex justify-center">
+                <button
+                  onClick={() => navigate("dashboard")}
+                  className="inline-flex items-center gap-2 rounded-full bg-[#c6ff2e] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-[#0f1626] shadow-lg active:scale-[0.98]"
+                >
+                  Enter Command Center
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </button>
+              </div>
             </div>
           </div>
 
           {/* Four-Step Process List (bottom left) */}
           <div
-            className="absolute font-tight max-[760px]:!left-[18px] max-[760px]:!right-[18px] max-[760px]:!bottom-[58px] max-[760px]:!w-auto"
+            className="absolute font-tight max-[760px]:!left-[16px] max-[760px]:!right-[16px] max-[760px]:!bottom-[46px] max-[760px]:!w-auto"
             style={{
               left: "calc(36 * var(--u))",
               bottom: "calc(28 * var(--u))",
               width: "calc(430 * var(--u))",
               opacity: processVisibility,
               transform: `translateY(${(36 * (1 - processVisibility)).toFixed(2)}px)`,
-              pointerEvents: processVisibility <= 0.05 ? "none" : "auto",
+              pointerEvents: processVisibility <= 0.15 ? "none" : "auto",
             }}
           >
             <div className="space-y-[calc(9*var(--u))] max-[760px]:space-y-[6px]">
@@ -434,7 +445,7 @@ export const Home: React.FC = () => {
 
           {/* Scroll Cue */}
           <div
-            className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none font-tight"
+            className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none font-tight max-[760px]:!bottom-[14px]"
             style={{
               bottom: "calc(28 * var(--u))",
               opacity: scrollCueOpacity,
@@ -446,9 +457,10 @@ export const Home: React.FC = () => {
                 letterSpacing: "0.06em",
                 color: "#f4f6fa",
               }}
-              className="font-medium uppercase whitespace-nowrap max-[760px]:text-[10px]"
+              className="font-medium uppercase whitespace-nowrap max-[760px]:!text-[10px]"
             >
-              DRAG 3D CITY OR SCROLL TO GLIDE
+              <span className="md:hidden">SCROLL DOWN TO EXPLORE</span>
+              <span className="hidden md:inline">DRAG 3D CITY OR SCROLL TO GLIDE</span>
             </span>
             <div
               style={{
@@ -509,7 +521,7 @@ export const Home: React.FC = () => {
               </div>
 
               <div className="lg:col-span-7 space-y-3">
-                <div className="h-[420px] sm:h-[460px] w-full">
+                <div className="h-[330px] sm:h-[420px] lg:h-[460px] w-full">
                   <FactoryTwin3D
                     machines={activeFacility.machines}
                     selectedMachineId={selectedMachineId}
@@ -517,16 +529,16 @@ export const Home: React.FC = () => {
                     compact
                   />
                 </div>
-                <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-800 bg-[#0D1422] px-4 py-2.5 text-xs">
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span className="font-mono font-semibold text-[#00E5FF]">
+                <div className="flex flex-wrap items-center justify-between gap-2.5 rounded-lg border border-slate-800 bg-[#0D1422] px-3.5 sm:px-4 py-2.5 text-xs">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <span className="font-mono font-semibold text-[#00E5FF] shrink-0">
                       {selectedMachine.id}
                     </span>
                     <span className="text-slate-200 font-medium truncate">
                       {selectedMachine.name}
                     </span>
                   </div>
-                  <div className="flex items-center gap-4 font-mono tabular-nums text-slate-300 shrink-0">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono tabular-nums text-slate-300">
                     <span>Health: {selectedMachine.prediction.healthScore}%</span>
                     <span>Temp: {selectedMachine.temperature.toFixed(1)}°C</span>
                     <span>Vib: {selectedMachine.vibration.toFixed(2)} mm/s</span>

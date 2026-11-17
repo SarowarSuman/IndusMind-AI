@@ -405,6 +405,10 @@ export const FactoryTwin3D: React.FC<FactoryTwin3DProps> = ({
   } | null>(null);
   const [webglError, setWebglError] = useState<string | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [touchOrbitUnlocked, setTouchOrbitUnlocked] = useState(false);
+  const touchOrbitRef = useRef(false);
+  touchOrbitRef.current = touchOrbitUnlocked;
+  const canvasDomRef = useRef<HTMLCanvasElement | null>(null);
 
   const machinesRef = useRef<MachineAsset[]>(machines);
   machinesRef.current = machines;
@@ -416,6 +420,12 @@ export const FactoryTwin3D: React.FC<FactoryTwin3DProps> = ({
   onSelectRef.current = onSelectMachine;
 
   const cameraTargetGoal = useRef<{ pos: THREE.Vector3; target: THREE.Vector3 } | null>(null);
+
+  useEffect(() => {
+    if (canvasDomRef.current) {
+      canvasDomRef.current.style.touchAction = touchOrbitUnlocked ? "none" : "pan-y";
+    }
+  }, [touchOrbitUnlocked]);
 
   useEffect(() => {
     const mq = window.matchMedia?.("(prefers-reduced-motion: reduce)");
@@ -687,6 +697,18 @@ export const FactoryTwin3D: React.FC<FactoryTwin3DProps> = ({
     controls.autoRotateSpeed = 0.45;
     controls.target.set(0, 0.7, 0);
 
+    canvasDomRef.current = renderer.domElement;
+    renderer.domElement.style.touchAction = touchOrbitRef.current ? "none" : "pan-y";
+
+    const onPointerDownCapture = (e: PointerEvent) => {
+      if (e.pointerType === "mouse") {
+        controls.enabled = true;
+      } else {
+        controls.enabled = touchOrbitRef.current;
+      }
+    };
+    renderer.domElement.addEventListener("pointerdown", onPointerDownCapture, { capture: true });
+
     controls.addEventListener("start", () => {
       cameraTargetGoal.current = null;
       controls.autoRotate = false;
@@ -884,9 +906,11 @@ export const FactoryTwin3D: React.FC<FactoryTwin3DProps> = ({
 
     return () => {
       disposed = true;
+      canvasDomRef.current = null;
       cancelAnimationFrame(frameId);
       clearTimeout(frameId);
       ro.disconnect();
+      renderer.domElement.removeEventListener("pointerdown", onPointerDownCapture, { capture: true });
       renderer.domElement.removeEventListener("pointermove", handlePointerMove);
       renderer.domElement.removeEventListener("click", handleClick);
       renderer.domElement.removeEventListener("pointerleave", handleLeave);
@@ -950,15 +974,28 @@ export const FactoryTwin3D: React.FC<FactoryTwin3DProps> = ({
   }
 
   return (
-    <div className="relative w-full h-full min-h-[340px] select-none overflow-hidden rounded-xl border border-slate-800/80 bg-[#070B14]">
+    <div className="relative w-full h-full min-h-[300px] sm:min-h-[340px] select-none overflow-hidden rounded-xl border border-slate-800/80 bg-[#070B14]">
       <div ref={mountRef} className="w-full h-full" aria-label="Interactive 3D Factory Digital Twin" />
+
+      {/* Mobile Touch-Scroll Safety Toggle */}
+      <button
+        type="button"
+        onClick={() => setTouchOrbitUnlocked((v) => !v)}
+        className={`md:hidden absolute top-3 right-3 z-20 rounded-full px-3 py-1.5 text-[11px] font-semibold border transition-colors ${
+          touchOrbitUnlocked
+            ? "bg-[#c6ff2e] text-[#0f1626] border-[#c6ff2e]"
+            : "bg-[#0D1422]/90 text-slate-200 border-slate-700"
+        }`}
+      >
+        {touchOrbitUnlocked ? "3D Orbit: Active (Tap to Scroll)" : "Scroll Safe · Tap for 3D Orbit"}
+      </button>
 
       {/* Hover Tooltip — solid dark surface (no backdrop-blur over WebGL) */}
       {hoveredMachine && (
         <div
-          className="pointer-events-none absolute z-20 w-56 rounded-lg border border-slate-700 bg-[#0D1422]/95 p-3 shadow-xl"
+          className="pointer-events-none absolute z-20 w-52 sm:w-56 rounded-lg border border-slate-700 bg-[#0D1422]/95 p-3 shadow-xl"
           style={{
-            left: Math.min(hoveredMachine.x + 14, 460),
+            left: Math.max(8, Math.min(hoveredMachine.x + 14, (mountRef.current?.clientWidth || 320) - 220)),
             top: Math.max(12, hoveredMachine.y - 20),
           }}
         >

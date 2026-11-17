@@ -22,11 +22,14 @@
     }
   }
 
-  html {
+  html,
+  body {
     font-family: var(--font-sans);
     background-color: #0f1626;
     color: #f4f6fa;
     scroll-behavior: smooth;
+    overflow-x: clip;
+    -webkit-overflow-scrolling: touch;
   }
 
   h1, h2, h3, h4, .font-display {
