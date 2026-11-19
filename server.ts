@@ -10,7 +10,32 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = Number(process.env.PORT) || 3000;
+
+function resolvePort(): number {
+  const portIdx = process.argv.indexOf("--port");
+  if (portIdx !== -1 && process.argv[portIdx + 1]) {
+    const cliPort = Number(process.argv[portIdx + 1]);
+    if (Number.isFinite(cliPort) && cliPort > 0) return cliPort;
+  }
+  const envPort = Number(process.env.PORT);
+  const nginxPort = Number(process.env.NGINX_PORT);
+  if (Number.isFinite(envPort) && envPort > 0 && envPort !== nginxPort) {
+    return envPort;
+  }
+  const defaultPort = Number(process.env.DEFAULT_APP_PORT);
+  return Number.isFinite(defaultPort) && defaultPort > 0 ? defaultPort : 3000;
+}
+
+function resolveHost(): string {
+  const hostIdx = process.argv.indexOf("--host");
+  if (hostIdx !== -1 && process.argv[hostIdx + 1]) {
+    return process.argv[hostIdx + 1];
+  }
+  return "0.0.0.0";
+}
+
+const PORT = resolvePort();
+const HOST = resolveHost();
 
 app.disable("x-powered-by");
 app.use((_req, res, next) => {
@@ -154,25 +179,135 @@ function parseGeminiError(err: unknown): { status: number; code: string; message
   return { status, code, message: cleanMessage };
 }
 
-app.post("/api/copilot/analyze", async (req, res) => {
-  const { question, context, history } = req.body || {};
-  const apiKey = process.env.GEMINI_API_KEY;
-
-  if (!apiKey || apiKey === "MY_GEMINI_API_KEY") {
-    return res.status(503).json({
-      error: "API_KEY_MISSING",
-      message: "Gemini API key is not configured. Please set GEMINI_API_KEY in Settings > Secrets.",
+async function getAvailableGroqModels(groqKey: string): Promise<string[]> {
+  try {
+    const resp = await fetch("https://api.groq.com/openai/v1/models", {
+      headers: { Authorization: `Bearer ${groqKey}` },
     });
+    if (!resp.ok) return [];
+    const data = await resp.json().catch(() => ({}));
+    const list: Array<{ id?: string; active?: boolean }> = Array.isArray(data?.data) ? data.data : [];
+    const excluded = /(whisper|guard|tts|orpheus|playai|prompt-guard|safeguard|embed)/i;
+    const preferredOrder = [
+      "llama-3.3-70b-versatile",
+      "llama-3.1-8b-instant",
+      "openai/gpt-oss-120b",
+      "openai/gpt-oss-20b",
+      "qwen/qwen3-32b",
+      "meta-llama/llama-4-scout-17b-16e-instruct",
+    ];
+    const validIds = list
+      .filter((m) => m.id && m.active !== false && !excluded.test(m.id))
+      .map((m) => String(m.id));
+    const sorted = [
+      ...preferredOrder.filter((id) => validIds.includes(id)),
+      ...validIds.filter((id) => !preferredOrder.includes(id)),
+    ];
+    return sorted.slice(0, 4);
+  } catch {
+    return [];
+  }
+}
+
+async function callGroq(
+  groqKey: string,
+  systemInstruction: string,
+  contents: string
+): Promise<{ ok: true; reply: string; model: string } | { ok: false; status: number; code: string; message: string }> {
+  const trySingleModel = async (model: string) => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 15000);
+    try {
+      const resp = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${groqKey}`,
+        },
+        body: JSON.stringify({
+          model,
+          temperature: 0.35,
+          max_tokens: 700,
+          messages: [
+            { role: "system", content: systemInstruction },
+            { role: "user", content: contents },
+          ],
+        }),
+        signal: controller.signal,
+      });
+      clearTimeout(timer);
+
+      const payload = await resp.json().catch(() => ({}));
+      if (!resp.ok) {
+        const errMsg =
+          payload?.error?.message || `Groq API returned HTTP ${resp.status}. Please check GROQ_API_KEY.`;
+        return {
+          ok: false as const,
+          status: resp.status,
+          code: resp.status === 401 ? "API_KEY_INVALID" : "GROQ_UPSTREAM_ERROR",
+          message: errMsg,
+        };
+      }
+
+      const reply = String(payload?.choices?.[0]?.message?.content || "").trim();
+      if (!reply) {
+        return {
+          ok: false as const,
+          status: 502,
+          code: "GROQ_EMPTY_RESPONSE",
+          message: "Groq API returned an empty response. Please try again.",
+        };
+      }
+      return { ok: true as const, reply, model };
+    } catch (err) {
+      clearTimeout(timer);
+      return {
+        ok: false as const,
+        status: 502,
+        code: "GROQ_UPSTREAM_ERROR",
+        message: err instanceof Error ? err.message : "Unable to reach Groq API right now.",
+      };
+    }
+  };
+
+  const firstAttempt = await trySingleModel("llama-3.3-70b-versatile");
+  if (firstAttempt.ok) return firstAttempt;
+
+  if (firstAttempt.status === 404 || /does not exist|not have access|model/i.test(firstAttempt.message)) {
+    const dynamicModels = await getAvailableGroqModels(groqKey);
+    const candidates =
+      dynamicModels.length > 0
+        ? dynamicModels
+        : ["llama-3.1-8b-instant", "openai/gpt-oss-120b", "qwen/qwen3-32b"];
+
+    let lastFailure: typeof firstAttempt = firstAttempt;
+    for (const candidate of candidates) {
+      if (candidate === "llama-3.3-70b-versatile") continue;
+      const attempt = await trySingleModel(candidate);
+      if (attempt.ok) return attempt;
+      lastFailure = attempt;
+    }
+    return lastFailure;
   }
 
-  const ai = new GoogleGenAI({
-    apiKey,
-    httpOptions: {
-      headers: {
-        "User-Agent": "aistudio-build",
-      },
-    },
-  });
+  return firstAttempt;
+}
+
+app.post("/api/copilot/analyze", async (req, res) => {
+  const { question, context, history } = req.body || {};
+  const geminiKey = process.env.GEMINI_API_KEY;
+  const groqKey = process.env.GROQ_API_KEY;
+
+  const hasGemini = Boolean(geminiKey && geminiKey !== "MY_GEMINI_API_KEY");
+  const hasGroq = Boolean(groqKey && groqKey !== "MY_GROQ_API_KEY");
+
+  if (!hasGemini && !hasGroq) {
+    return res.status(503).json({
+      error: "API_KEY_MISSING",
+      message:
+        "No live AI key is configured yet. Add free GROQ_API_KEY (from console.groq.com, no credit card needed) or GEMINI_API_KEY in Vercel Environment Variables / Settings > Secrets.",
+    });
+  }
 
   const systemInstruction = `You are Sphere Copilot, the real-time industrial intelligence assistant inside IndusMindAI.
 Rules:
@@ -193,59 +328,107 @@ ${JSON.stringify(context, null, 2)}
 
 ${recentHistory ? `Recent Conversation:\n${recentHistory}\n\n` : ""}Operator Question: ${String(question || "").slice(0, 800)}`;
 
-  for (let attempt = 0; attempt < 2; attempt++) {
-    try {
-      const response = await ai.models.generateContent({
-        model: "gemini-4-hydrogen",
-        contents,
-        config: {
-          systemInstruction,
-        },
-      });
+  let geminiFailure: { status: number; code: string; message: string } | null = null;
 
-      return res.json({
-        mode: "gemini",
-        reply: (response.text ?? "").trim(),
-      });
-    } catch (err) {
-      const parsed = parseGeminiError(err);
-      const isTransient = parsed.status >= 500 && attempt === 0;
-      if (isTransient) {
-        await new Promise((r) => setTimeout(r, 400));
-        continue;
+  if (hasGemini && geminiKey) {
+    const ai = new GoogleGenAI({
+      apiKey: geminiKey,
+      httpOptions: {
+        headers: {
+          "User-Agent": "aistudio-build",
+        },
+      },
+    });
+
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const response = await ai.models.generateContent({
+          model: "gemini-4-hydrogen",
+          contents,
+          config: {
+            systemInstruction,
+          },
+        });
+
+        return res.json({
+          mode: "gemini",
+          provider: "Gemini Real-Time AI",
+          reply: (response.text ?? "").trim(),
+        });
+      } catch (err) {
+        const parsed = parseGeminiError(err);
+        const isTransient = parsed.status >= 500 && attempt === 0;
+        if (isTransient) {
+          await new Promise((r) => setTimeout(r, 400));
+          continue;
+        }
+        geminiFailure = parsed;
+        break;
       }
-      return res.status(parsed.status).json({
-        error: parsed.code,
-        message: parsed.message,
-      });
     }
   }
 
+  if (hasGroq && groqKey) {
+    const groqResult = await callGroq(groqKey, systemInstruction, contents);
+    if (groqResult.ok === true) {
+      return res.json({
+        mode: "groq",
+        provider: "Groq Llama 3.3 AI",
+        reply: groqResult.reply,
+      });
+    }
+    return res.status(groqResult.status).json({
+      error: groqResult.code,
+      message: groqResult.message,
+    });
+  }
+
+  if (geminiFailure) {
+    return res.status(geminiFailure.status).json({
+      error: geminiFailure.code,
+      message: geminiFailure.message,
+    });
+  }
+
   return res.status(502).json({
-    error: "GEMINI_UPSTREAM_ERROR",
-    message: "Unable to reach Gemini API right now. Please try again.",
+    error: "AI_UPSTREAM_ERROR",
+    message: "Unable to reach AI provider right now. Please try again.",
   });
 });
 
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
     const { createServer: createViteServer } = await import("vite");
-    const vite = await createViteServer({
-      server: { middlewareMode: true },
+    const httpServer = app.listen(PORT, HOST, () => {
+      console.log(`IndusMindAI server running on http://${HOST}:${PORT}`);
+    });
+
+    const vitePromise = createViteServer({
+      server: {
+        middlewareMode: true,
+        hmr: process.env.DISABLE_HMR === "true" ? false : { server: httpServer },
+      },
       appType: "spa",
     });
-    app.use(vite.middlewares);
+
+    app.use(async (req, res, next) => {
+      try {
+        const vite = await vitePromise;
+        vite.middlewares(req, res, next);
+      } catch (err) {
+        next(err);
+      }
+    });
   } else {
     const distPath = path.join(__dirname, "dist");
     app.use(express.static(distPath));
     app.get("*", (_req, res) => {
       res.sendFile(path.join(distPath, "index.html"));
     });
+    app.listen(PORT, HOST, () => {
+      console.log(`IndusMindAI server running on http://${HOST}:${PORT}`);
+    });
   }
-
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`IndusMindAI server running on http://0.0.0.0:${PORT}`);
-  });
 }
 
 startServer();

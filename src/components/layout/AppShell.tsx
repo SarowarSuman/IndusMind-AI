@@ -67,6 +67,8 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
     setIsSimulating,
     resetDemo,
     generateNewScenario,
+    lastStreamNotice,
+    clearStreamNotice,
     copilotOpen,
     setCopilotOpen,
     guidedStep,
@@ -411,6 +413,35 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
 
         {/* Interactive Walkthrough Bar */}
         <GuidedDemoBar />
+
+        {/* Live Stream / Anomaly Status Banner */}
+        {lastStreamNotice && (
+          <div className="border-b border-[#00E5FF]/25 bg-[#0B1526] px-4 py-2 text-xs flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-2 text-slate-200 font-mono min-w-0">
+              <span
+                className={`h-2 w-2 rounded-full shrink-0 ${
+                  isSimulating ? "bg-[#22C55E] animate-pulse" : "bg-[#F59E0B]"
+                }`}
+              />
+              <span className="truncate">{lastStreamNotice}</span>
+            </div>
+            <div className="flex items-center gap-3 shrink-0">
+              <button
+                onClick={() => navigate("predictive")}
+                className="font-semibold text-[#3fd8ff] hover:underline"
+              >
+                Inspect Sensors →
+              </button>
+              <button
+                onClick={clearStreamNotice}
+                aria-label="Dismiss telemetry notice"
+                className="text-slate-400 hover:text-white"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Page Body */}
         <main className="flex-1 p-4 sm:p-6 overflow-x-hidden">

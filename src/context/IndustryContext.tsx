@@ -108,6 +108,8 @@ interface IndustryContextValue {
   setIsSimulating: (v: boolean) => void;
   resetDemo: () => void;
   generateNewScenario: () => void;
+  lastStreamNotice: string | null;
+  clearStreamNotice: () => void;
   updateMachineSensors: (
     machineId: string,
     updates: Partial<Pick<MachineAsset, "temperature" | "vibration" | "powerKw" | "rpm" | "operatingHours" | "pressureBar" | "torqueNm">>
@@ -207,6 +209,8 @@ export const IndustryProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [activeFacilityId, setActiveFacilityId] = useState<string>("factory-a");
   const [selectedMachineId, setSelectedMachineId] = useState<string>("M-03");
   const [isSimulating, setIsSimulating] = useState<boolean>(false);
+  const [lastStreamNotice, setLastStreamNotice] = useState<string | null>(null);
+  const clearStreamNotice = useCallback(() => setLastStreamNotice(null), []);
   const [copilotOpen, setCopilotOpen] = useState<boolean>(false);
   const [copilotQueuedPrompt, setCopilotQueuedPrompt] = useState<string | null>(null);
   const [guidedStep, setGuidedStep] = useState<number | null>(null);
@@ -819,6 +823,7 @@ export const IndustryProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const resetDemo = useCallback(() => {
     setIsSimulating(false);
+    setLastStreamNotice(null);
     setGuidedStep(null);
     const fresh = createInitialMultiFacilities();
     setFacilities(fresh);
@@ -829,16 +834,23 @@ export const IndustryProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const generateNewScenario = useCallback(() => {
     updateActiveFacility((fac) => {
-      const targetIdx = Math.floor(Math.random() * fac.machines.length);
+      const operationalIndices = fac.machines
+        .map((m, idx) => (m.status === "Operational" ? idx : -1))
+        .filter((idx) => idx !== -1);
+      const targetIdx =
+        operationalIndices.length > 0
+          ? operationalIndices[Math.floor(Math.random() * operationalIndices.length)]
+          : Math.floor(Math.random() * fac.machines.length);
+
       const updatedMachines = fac.machines.map((m, idx) => {
-        const spike = idx === targetIdx ? 0.85 : Math.random() * 0.35;
+        const spike = idx === targetIdx ? 0.92 : Math.random() * 0.4;
         const temp = Number(
           (m.thresholds.tempNominal + (m.thresholds.tempMax - m.thresholds.tempNominal) * spike).toFixed(1)
         );
         const vib = Number(
           (m.thresholds.vibrationNominal + (m.thresholds.vibrationMax - m.thresholds.vibrationNominal) * spike).toFixed(2)
         );
-        const power = Number((m.thresholds.powerNominal * (1 + spike * 0.32)).toFixed(1));
+        const power = Number((m.thresholds.powerNominal * (1 + spike * 0.35)).toFixed(1));
         const merged = { ...m, temperature: temp, vibration: vib, powerKw: power };
         const { prediction, derivedStatus } = evaluateMachinePrediction(merged);
         return {
@@ -858,11 +870,32 @@ export const IndustryProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           ],
         };
       });
+
       const targetM = updatedMachines[targetIdx];
-      setSelectedMachineId(targetM.id);
+      queueMicrotask(() => {
+        setSelectedMachineId(targetM.id);
+        setLastStreamNotice(
+          `Anomaly injected on ${targetM.id} (${targetM.name}) · Health ${targetM.prediction.healthScore}% · ${targetM.temperature.toFixed(1)}°C · ${targetM.vibration.toFixed(2)} mm/s`
+        );
+      });
+
+      const newAlert: IndustrialAlert = {
+        id: `alrt-anom-${Date.now()}`,
+        machineId: targetM.id,
+        title: `Anomaly Detected: ${targetM.name} (${targetM.id})`,
+        message: `Thermal spike (${targetM.temperature.toFixed(1)}°C) and vibration drift (${targetM.vibration.toFixed(2)} mm/s) pushed health to ${targetM.prediction.healthScore}%.`,
+        recommendedAction: targetM.prediction.recommendedAction,
+        category: "Machine Failure Risk",
+        priority: targetM.prediction.riskLevel === "Critical Risk" ? "Critical" : "High",
+        timestamp: new Date().toISOString(),
+        read: false,
+        resolved: false,
+      };
+
       const nextFac = {
         ...fac,
         machines: updatedMachines,
+        alerts: [newAlert, ...fac.alerts].slice(0, 40),
         activityLog: [
           {
             id: `act-${Date.now()}`,
@@ -877,20 +910,27 @@ export const IndustryProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     });
   }, [updateActiveFacility]);
 
-  // Continuous live simulation tick when enabled
+  const selectedMachineIdRef = useRef(selectedMachineId);
+  selectedMachineIdRef.current = selectedMachineId;
+
+  // Continuous live simulation tick when enabled (fires immediately + every 1.5s)
   const simTickRef = useRef<number | null>(null);
   useEffect(() => {
     if (!isSimulating) {
       if (simTickRef.current) window.clearInterval(simTickRef.current);
       return;
     }
-    simTickRef.current = window.setInterval(() => {
+
+    const runStreamTick = () => {
       updateActiveFacility((fac) => {
         const updatedMachines = fac.machines.map((m) => {
-          const jitterTemp = (Math.random() - 0.46) * 0.9;
-          const jitterVib = (Math.random() - 0.46) * 0.14;
-          const jitterPower = (Math.random() - 0.48) * 0.6;
-          const nextTemp = Math.max(m.thresholds.tempNominal * 0.8, Number((m.temperature + jitterTemp).toFixed(1)));
+          const jitterTemp = (Math.random() - 0.45) * 1.8;
+          const jitterVib = (Math.random() - 0.45) * 0.32;
+          const jitterPower = (Math.random() - 0.48) * 1.8;
+          const nextTemp = Math.max(
+            m.thresholds.tempNominal * 0.8,
+            Number((m.temperature + jitterTemp).toFixed(1))
+          );
           const nextVib = Math.max(0.4, Number((m.vibration + jitterVib).toFixed(2)));
           const nextPower = Math.max(5, Number((m.powerKw + jitterPower).toFixed(1)));
           const merged = {
@@ -918,10 +958,22 @@ export const IndustryProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             ],
           };
         });
+        const focusM =
+          updatedMachines.find((m) => m.id === selectedMachineIdRef.current) || updatedMachines[0];
+        if (focusM) {
+          queueMicrotask(() => {
+            setLastStreamNotice(
+              `Live stream active (1.5s cycle) · ${focusM.id}: ${focusM.temperature.toFixed(1)}°C · ${focusM.vibration.toFixed(2)} mm/s · Health ${focusM.prediction.healthScore}%`
+            );
+          });
+        }
         const nextFac = { ...fac, machines: updatedMachines };
         return { ...nextFac, lines: recomputeLines(nextFac) };
       });
-    }, 2600);
+    };
+
+    runStreamTick();
+    simTickRef.current = window.setInterval(runStreamTick, 1500);
     return () => {
       if (simTickRef.current) window.clearInterval(simTickRef.current);
     };
@@ -1040,6 +1092,8 @@ export const IndustryProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setIsSimulating,
     resetDemo,
     generateNewScenario,
+    lastStreamNotice,
+    clearStreamNotice,
     updateMachineSensors,
     addCustomMachine,
     createMaintenanceTask,

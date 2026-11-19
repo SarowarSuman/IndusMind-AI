@@ -7,7 +7,8 @@ interface ChatMessage {
   id: string;
   role: "user" | "assistant";
   content: string;
-  mode?: "gemini" | "error";
+  mode?: "ai" | "error";
+  providerLabel?: string;
   timestamp: string;
 }
 
@@ -37,7 +38,8 @@ export const CopilotPanel: React.FC<{ compact?: boolean }> = ({ compact = false 
     {
       id: "welcome",
       role: "assistant",
-      mode: "gemini",
+      mode: "ai",
+      providerLabel: "Live Telemetry Sync",
       timestamp: new Date().toLocaleTimeString(),
       content: `Sphere Copilot is synced live to ${activeFacility.name} (${activeIndustry.name}). Ask anything in English or Banglish about machine health, accident prevention, delivery delays, or maintenance priorities.`,
     },
@@ -47,7 +49,11 @@ export const CopilotPanel: React.FC<{ compact?: boolean }> = ({ compact = false 
   const [streamingContent, setStreamingContent] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
-  const revealStreamingResponse = async (fullText: string, mode: "gemini" | "error") => {
+  const revealStreamingResponse = async (
+    fullText: string,
+    mode: "ai" | "error",
+    providerLabel?: string
+  ) => {
     const words = fullText.split(" ");
     let built = "";
     const stepSize = Math.max(2, Math.ceil(words.length / 26));
@@ -64,6 +70,7 @@ export const CopilotPanel: React.FC<{ compact?: boolean }> = ({ compact = false 
         role: "assistant",
         content: fullText,
         mode,
+        providerLabel,
         timestamp: new Date().toLocaleTimeString(),
       },
     ]);
@@ -85,7 +92,8 @@ export const CopilotPanel: React.FC<{ compact?: boolean }> = ({ compact = false 
     setLoading(true);
 
     let replyText = "";
-    let mode: "gemini" | "error" = "gemini";
+    let mode: "ai" | "error" = "ai";
+    let providerLabel = "Live AI";
 
     try {
       const context = buildCopilotContextPayload(activeFacility, weather, activeIndustry.name);
@@ -102,13 +110,14 @@ export const CopilotPanel: React.FC<{ compact?: boolean }> = ({ compact = false 
       if (!res.ok) {
         replyText =
           data?.message ||
-          `Gemini API error (${res.status}). Please verify GEMINI_API_KEY and billing in Settings > Secrets.`;
+          `AI Copilot error (${res.status}). Add free GROQ_API_KEY (console.groq.com) or GEMINI_API_KEY in Vercel Environment Variables.`;
         mode = "error";
       } else if (data?.reply) {
         replyText = data.reply;
-        mode = "gemini";
+        providerLabel = data.provider || "Live AI";
+        mode = "ai";
       } else {
-        replyText = "Gemini API returned an empty response. Please try again.";
+        replyText = "AI Copilot returned an empty response. Please try again.";
         mode = "error";
       }
     } catch {
@@ -131,7 +140,7 @@ export const CopilotPanel: React.FC<{ compact?: boolean }> = ({ compact = false 
       ]);
       return;
     }
-    await revealStreamingResponse(replyText, mode);
+    await revealStreamingResponse(replyText, mode, providerLabel);
   };
 
   useEffect(() => {
@@ -248,7 +257,9 @@ export const CopilotPanel: React.FC<{ compact?: boolean }> = ({ compact = false 
                   <>
                     <span aria-hidden="true">·</span>
                     <span>
-                      {msg.mode === "error" ? "Gemini API Notice" : "Gemini Real-Time AI"}
+                      {msg.mode === "error"
+                        ? "AI Copilot Setup Notice"
+                        : msg.providerLabel || "Live Real-Time AI"}
                     </span>
                   </>
                 )}

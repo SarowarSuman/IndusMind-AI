@@ -170,12 +170,23 @@ export const Weather: React.FC = () => {
             <div className="text-sm font-semibold text-slate-100">
               {live?.location ?? "Gazipur, Bangladesh"}
             </div>
-            <div className="text-xs text-slate-400">
-              Source:{" "}
-              <span className={live?.isSimulated ? "text-amber-300" : "text-emerald-300"}>
-                {live?.source ?? "Regional Weather Telemetry"}
-              </span>
+            <div className="text-xs text-slate-400 mt-0.5">
+              Live feed:{" "}
+              <a
+                href="https://open-meteo.com/"
+                target="_blank"
+                rel="noreferrer"
+                className={`underline decoration-dotted underline-offset-2 ${
+                  live?.isSimulated ? "text-amber-300" : "text-emerald-300"
+                }`}
+              >
+                {live?.source ?? "Open-Meteo Live Forecast API"}
+              </a>
               {live?.updatedAt ? ` · Updated ${new Date(live.updatedAt).toLocaleTimeString()}` : ""}
+              <span className="text-slate-500">
+                {" "}
+                · Displayed in the 4 weather cards &amp; 5-day forecast chart below
+              </span>
             </div>
           </div>
         </div>
