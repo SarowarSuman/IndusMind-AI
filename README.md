@@ -14,7 +14,6 @@
 
 <br />
 
-[![Live Deployment](https://img.shields.io/badge/Live%20Platform-indusmindbd.vercel.app-00E5FF?style=for-the-badge&logo=vercel&logoColor=white)](https://indusmindbd.vercel.app/)
 [![3D Engine](https://img.shields.io/badge/3D%20Twin-Three.js-c6ff2e?style=for-the-badge&logo=threedotjs&logoColor=0f1626)](https://indusmindbd.vercel.app/)
 [![AI Engine](https://img.shields.io/badge/AI%20Copilot-Google%20Gemini-3fd8ff?style=for-the-badge&logo=googlegemini&logoColor=white)](https://indusmindbd.vercel.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge)](./LICENSE)
