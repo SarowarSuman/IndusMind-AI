@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
+import mcpHandler from "./api/mcp.ts";
 
 dotenv.config();
 
@@ -394,6 +395,10 @@ ${recentHistory ? `Recent Conversation:\n${recentHistory}\n\n` : ""}Operator Que
     error: "AI_UPSTREAM_ERROR",
     message: "Unable to reach AI provider right now. Please try again.",
   });
+});
+
+app.all("/api/mcp", (req, res) => {
+  void mcpHandler(req as never, res as never);
 });
 
 async function startServer() {
