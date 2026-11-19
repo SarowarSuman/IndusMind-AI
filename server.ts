@@ -4,6 +4,8 @@ import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
 import mcpHandler from "./api/mcp.ts";
+import mcpWeatherHandler from "./api/mcp-weather.ts";
+import mcpAuditHandler from "./api/mcp-audit.ts";
 
 dotenv.config();
 
@@ -324,8 +326,38 @@ Rules:
         .join("\n")
     : "";
 
+  let mcpSafetyPolicy = "Read-Only Plant Cyber Shield";
+  try {
+    let policyPayload: { result?: { contents?: Array<{ text?: string }> } } | undefined;
+    const mockRes = {
+      status: () => mockRes,
+      json: (b: unknown) => {
+        policyPayload = b as { result?: { contents?: Array<{ text?: string }> } };
+      },
+    };
+    await mcpHandler(
+      {
+        method: "POST",
+        body: {
+          jsonrpc: "2.0",
+          id: "copilot-mcp-policy",
+          method: "resources/read",
+          params: { uri: "indusmind://plant/cyber-shield-policy" },
+        },
+      },
+      mockRes
+    );
+    const txt = policyPayload?.result?.contents?.[0]?.text;
+    if (txt) mcpSafetyPolicy = txt;
+  } catch {
+    // non-blocking fallback
+  }
+
   const contents = `Live Plant Context:
 ${JSON.stringify(context, null, 2)}
+
+Active MCP Security Policy (indusmind-plant-mcp):
+${mcpSafetyPolicy}
 
 ${recentHistory ? `Recent Conversation:\n${recentHistory}\n\n` : ""}Operator Question: ${String(question || "").slice(0, 800)}`;
 
@@ -399,6 +431,14 @@ ${recentHistory ? `Recent Conversation:\n${recentHistory}\n\n` : ""}Operator Que
 
 app.all("/api/mcp", (req, res) => {
   void mcpHandler(req as never, res as never);
+});
+
+app.all("/api/mcp-weather", (req, res) => {
+  void mcpWeatherHandler(req as never, res as never);
+});
+
+app.all("/api/mcp-audit", (req, res) => {
+  void mcpAuditHandler(req as never, res as never);
 });
 
 async function startServer() {

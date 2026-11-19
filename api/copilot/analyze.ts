@@ -1,4 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
+import mcpHandler from "../mcp.ts";
 
 interface VercelReq {
   method?: string;
@@ -226,8 +227,38 @@ Rules:
         .join("\n")
     : "";
 
+  let mcpSafetyPolicy = "Read-Only Plant Cyber Shield";
+  try {
+    let policyPayload: { result?: { contents?: Array<{ text?: string }> } } | undefined;
+    const mockRes = {
+      status: () => mockRes,
+      json: (b: unknown) => {
+        policyPayload = b as { result?: { contents?: Array<{ text?: string }> } };
+      },
+    };
+    await mcpHandler(
+      {
+        method: "POST",
+        body: {
+          jsonrpc: "2.0",
+          id: "copilot-mcp-policy",
+          method: "resources/read",
+          params: { uri: "indusmind://plant/cyber-shield-policy" },
+        },
+      },
+      mockRes
+    );
+    const txt = policyPayload?.result?.contents?.[0]?.text;
+    if (txt) mcpSafetyPolicy = txt;
+  } catch {
+    // non-blocking fallback
+  }
+
   const contents = `Live Plant Context:
 ${JSON.stringify(context, null, 2)}
+
+Active MCP Security Policy (indusmind-plant-mcp):
+${mcpSafetyPolicy}
 
 ${recentHistory ? `Recent Conversation:\n${recentHistory}\n\n` : ""}Operator Question: ${String(question || "").slice(0, 800)}`;
 
